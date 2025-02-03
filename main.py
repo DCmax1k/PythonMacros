@@ -93,15 +93,6 @@ window = tk.Tk()
 window.title("Keyboard Listener")
 window.geometry("1100x620")
 
-# status_label = tk.Label(window, text="Listening Disabled", fg="red", font=("Arial", 12))
-# status_label.pack(pady=10)
-
-# toggle_button = tk.Button(window, text="Toggle Listening", command=toggle_listening)
-# toggle_button.pack(pady=10)
-
-# keybinds_label = tk.Label(window, text="Keybinds:\n" + "\n".join([f"{key}: {message}" for key, message in key_messages.items()]), font=("Arial", 10), anchor="w", justify="left")
-# keybinds_label.pack(pady=10, padx=10, anchor="w")
-
 toggle_button = tk.Button(window, text="Disabled", command=toggle_listening, fg="red", font=("Arial", 12))
 toggle_button.pack(pady=10)
 
@@ -113,42 +104,81 @@ phraseFrame.columnconfigure(2, weight=1)
 phraseFrame.columnconfigure(3, weight=1)
 
 all_keybinds = [f"{key}:    {message}" for key, message in key_messages.items()]
+keybind_keys = list(key_messages.keys())
+keybind_values = list(key_messages.values())
 title_size = 15
 keybinds_size = 12
 wrap_width = 250
 phrase_pady = 3
+category_colors = {
+    "Compliments": "#A7E22E",
+    "Responses": "#66CCFF",
+    "Remarks": "#FFB300",
+    "Fun Phrases": "#D17BFF"
+}
 
-# Compliments
-compliment_label = tk.Label(phraseFrame, text="Compliments", font=("Arial", title_size), fg="white", bg="#A7E22E")
-compliment_label.grid(row=0, column=0, sticky=tk.W)
+# COMPLIMENTS
+compliment_label = tk.Label(phraseFrame, text="Compliments", font=("Arial", title_size), fg="white", bg=category_colors["Compliments"])
+compliment_label.grid(row=0, column=0, sticky=tk.W, pady=10)
 
+compliment_label_section = tk.Frame(phraseFrame)
+compliment_label_section.columnconfigure(0, weight=1)
+compliment_label_section.columnconfigure(1, weight=10)
 for i in range(0, section1+1):
-    label = tk.Label(phraseFrame, text=all_keybinds[i], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
-    label.grid(row=i+1, column=0, sticky=tk.W, pady=phrase_pady)
+    label = tk.Label(compliment_label_section, text=keybind_keys[i], font=("Arial", keybinds_size+2), fg="white", bg=category_colors["Compliments"], justify="left")
+    label.grid(row=i, column=0, sticky=tk.W+tk.N, pady=phrase_pady)
+for j in range(0, section1+1):
+    label = tk.Label(compliment_label_section, text=keybind_values[j], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
+    label.grid(row=j, column=1, sticky=tk.W, pady=phrase_pady)
+compliment_label_section.grid(row=1, column=0, sticky="news")
 
-# Responses
-responses_label = tk.Label(phraseFrame, text="Responses", font=("Arial", title_size), fg="white", bg="#66CCFF")
-responses_label.grid(row=0, column=1, sticky=tk.W)
 
+# RESPONSES
+responses_label = tk.Label(phraseFrame, text="Responses", font=("Arial", title_size), fg="white", bg=category_colors["Responses"])
+responses_label.grid(row=0, column=1, sticky=tk.W, pady=10)
+
+responses_label_section = tk.Frame(phraseFrame)
+responses_label_section.columnconfigure(0, weight=1)
+responses_label_section.columnconfigure(1, weight=10)
 for i in range(section1+1, section2+1):
-    label = tk.Label(phraseFrame, text=all_keybinds[i], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
-    label.grid(row=i-section1, column=1, sticky=tk.W, pady=phrase_pady)
+    label = tk.Label(responses_label_section, text=keybind_keys[i], font=("Arial", keybinds_size+2), fg="white", bg=category_colors["Responses"], justify="left")
+    label.grid(row=i-section1, column=0, sticky=tk.W+tk.N, pady=phrase_pady)
+for j in range(section1+1, section2+1):
+    label = tk.Label(responses_label_section, text=keybind_values[j], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
+    label.grid(row=j-section1, column=1, sticky=tk.W, pady=phrase_pady)
+responses_label_section.grid(row=1, column=1, sticky="news")
 
-# Remarks
-remarks_label = tk.Label(phraseFrame, text="Remarks", font=("Arial", title_size), fg="white", bg="#FFB300")
-remarks_label.grid(row=0, column=2, sticky=tk.W)
 
+# REMARKS
+remarks_label = tk.Label(phraseFrame, text="Remarks", font=("Arial", title_size), fg="white", bg=category_colors["Remarks"])
+remarks_label.grid(row=0, column=2, sticky=tk.W, pady=10)
+
+remarks_label_section = tk.Frame(phraseFrame)
+remarks_label_section.columnconfigure(0, weight=1)
+remarks_label_section.columnconfigure(1, weight=10)
 for i in range(section2+1, section3+1):
-    label = tk.Label(phraseFrame, text=all_keybinds[i], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
-    label.grid(row=i-section2, column=2, sticky=tk.W, pady=phrase_pady)
+    label = tk.Label(remarks_label_section, text=keybind_keys[i], font=("Arial", keybinds_size+2), fg="white", bg=category_colors["Remarks"], justify="left")
+    label.grid(row=i-section2, column=0, sticky=tk.W+tk.N, pady=phrase_pady)
+for j in range(section2+1, section3+1):
+    label = tk.Label(remarks_label_section, text=keybind_values[j], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
+    label.grid(row=j-section2, column=1, sticky=tk.W, pady=phrase_pady)
+remarks_label_section.grid(row=1, column=2, sticky="news")
 
-# Fun Phrases
-phrases_label = tk.Label(phraseFrame, text="Fun Phrases", font=("Arial", title_size), fg="white", bg="#D17BFF")
-phrases_label.grid(row=0, column=3, sticky=tk.W)
 
+# FUN PHRASES
+phrases_label = tk.Label(phraseFrame, text="Fun Phrases", font=("Arial", title_size), fg="white", bg=category_colors["Fun Phrases"])
+phrases_label.grid(row=0, column=3, sticky=tk.W, pady=10)
+
+funphrases_label_section = tk.Frame(phraseFrame)
+funphrases_label_section.columnconfigure(0, weight=1)
+funphrases_label_section.columnconfigure(1, weight=10)
 for i in range(section3+1, section4+1):
-    label = tk.Label(phraseFrame, text=all_keybinds[i], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
-    label.grid(row=i-section3, column=3, sticky=tk.W, pady=phrase_pady)
+    label = tk.Label(funphrases_label_section, text=keybind_keys[i], font=("Arial", keybinds_size+2), fg="white", bg=category_colors["Fun Phrases"], justify="left")
+    label.grid(row=i-section3, column=0, sticky=tk.W+tk.N, pady=phrase_pady)
+for j in range(section3+1, section4+1):
+    label = tk.Label(funphrases_label_section, text=keybind_values[j], font=("Arial", keybinds_size), justify="left", wraplength=wrap_width)
+    label.grid(row=j-section3, column=1, sticky=tk.W, pady=phrase_pady)
+funphrases_label_section.grid(row=1, column=3, sticky="news")
 
 phraseFrame.pack(pady=10, padx=10, fill='x')
 
