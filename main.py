@@ -6,8 +6,8 @@ import time
 # A dictionary of key bindings and their corresponding messages
 section1 = 7
 section2 = 15
-section3 = 22
-section4 = 33
+section3 = 25
+section4 = 37
 key_messages = {
     # Compliments 0 - 7
         '1': 'That was so clean, my monitor just got shinier.',
@@ -29,7 +29,7 @@ key_messages = {
         'f': 'Yup.',
         'g': 'Nah.',
 
-    # Remarks 16 - 22
+    # Remarks 16 - 25
         'q': 'Everyone lets have a clean, fast paced good game. And don\'t forget to have fun!',
         'w': 'That was a terrific game everyone. Well played!',
         'e': 'That was a close one!',
@@ -37,8 +37,11 @@ key_messages = {
         '-': 'I can just type extremely fast, thats all.',
         'm': 'Check score.',
         'h': 'Ain\'t no shame in gettin\' out the game.',
+        'f1': 'Ooooookay.',
+        'f3': 'Bruh wtf are you doing?',
+        'f4': 'Bro\'s moving like he\'s playing on a trackpad.',
 
-    # Fun phrases 23 - 33
+    # Fun phrases 26 - 37
         'r': 'HOLY GUACAMOLE!',
         'o': 'Jeepers!',
         'p': 'Yikes!',
@@ -50,6 +53,7 @@ key_messages = {
         'c': 'My bad, my controller unplugged.', 
         'v': 'Well butter my biscuit!',
         'n': 'Oops! That\'s a one-way ticket to the report queue.',
+        ',': 'Pretty sure my teammate just unboxed his controller five minutes ago and is still reading the manual.',
 }
 
 # Flag to control whether the program should listen
@@ -85,8 +89,9 @@ def check_keys():
         for key in key_messages.keys(): 
             if keyboard.is_pressed(key): 
                 send_message(key) 
+                time.sleep(0.1)
                 break 
-    window.after(50, check_keys)  # Re-run this function
+    window.after(10, check_keys)  # Re-run this function
 
 # Set up the GUI
 window = tk.Tk()
