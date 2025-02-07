@@ -98,6 +98,9 @@ window = tk.Tk()
 window.title("Keyboard Listener")
 window.geometry("1100x620")
 
+button_label = tk.Label(window, text="Toggle with '=' key in game")
+button_label.pack(pady=2)
+
 toggle_button = tk.Button(window, text="Disabled", command=toggle_listening, fg="red", font=("Arial", 12))
 toggle_button.pack(pady=10)
 
